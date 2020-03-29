@@ -15,7 +15,7 @@ namespace CrudRepository
             {
                 return new CreateResult<ObjectModel>(objectModel);
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
                 return new ErrorResult<ObjectModel>();
             }
@@ -23,14 +23,8 @@ namespace CrudRepository
 
         public async Task<IResult<ObjectModel>> Delete(string variableString)
         {
-            try
-            {
-                return new DeleteResult<ObjectModel>();
-            }
-            catch (Exception ex)
-            {
-                return new ErrorResult<ObjectModel>();
-            }
+            return new DeleteResult<ObjectModel>();
+
         }
 
         public async Task<IResult<ObjectModel>> Read(string variableId)
@@ -47,7 +41,7 @@ namespace CrudRepository
 
                 return new SuccessResult<ObjectModel>(null);
             }
-            catch (Exception ex)
+            catch (FormatException ex)
             {
                 return new ErrorResult<ObjectModel>();
             }
@@ -56,22 +50,16 @@ namespace CrudRepository
 
         public async Task<IResult<ObjectModel>> Update(ObjectModel objectModel)
         {
-            try
+            var objectM = new ObjectModel
             {
-                var objectM = new ObjectModel
-                {
-                    VariableString = "string",
-                    VariableInt = 123,
-                    VariableBool = true,
-                    VariableId = "string"
-                };
+                VariableString = "string",
+                VariableInt = 123,
+                VariableBool = true,
+                VariableId = "string"
+            };
 
-                return new SuccessResult<ObjectModel>(objectM);
-            }
-            catch (Exception ex)
-            {
-                return new ErrorResult<ObjectModel>();
-            }
+            return new SuccessResult<ObjectModel>(objectM);
+         
         }
 
     }
