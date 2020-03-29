@@ -5,9 +5,9 @@ namespace CrudDomain.Contracts.Services
 {
     public interface ICrudService
     {
-        Task<IServiceResult<ObjectModel>> Create(ObjectModel objectModel);
-        Task<IServiceResult<ObjectModel>> Read(string variableString);
-        Task<IServiceResult<ObjectModel>> Update(ObjectModel objectModel);
-        Task<IServiceResult<ObjectModel>> Delete(string variableString);
+        Task<IResult<ObjectModel>> Create(ObjectModel objectModel);
+        Task<IResult<ObjectModel>> Read(string variableString);
+        Task<IResult<ObjectModel>> Update(ObjectModel objectModel);
+        Task<IResult<ObjectModel>> Delete(string variableString);
     }
 }

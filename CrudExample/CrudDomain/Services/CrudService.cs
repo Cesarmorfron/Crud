@@ -15,39 +15,40 @@ namespace CrudDomain.Services
             this.crudRepository = crudRepository;
         }
 
-        public async Task<IServiceResult<ObjectModel>> Create(ObjectModel objectModel)
+        public async Task<IResult<ObjectModel>> Create(ObjectModel objectModel)
         {
-            await crudRepository.Create(objectModel);
+            var result = await crudRepository.Create(objectModel);
 
-            return new CreateResult<ObjectModel>(objectModel);
+            return result;
         }
 
-        public async Task<IServiceResult<ObjectModel>> Delete(string variableString)
+        public async Task<IResult<ObjectModel>> Delete(string variableString)
         {
-            await this.crudRepository.Delete(variableString);
+            var result = await this.crudRepository.Delete(variableString);
 
-            return new DeleteResult<ObjectModel>();
+            return result;
         }
 
-        public async Task<IServiceResult<ObjectModel>> Read(string variableString)
+        public async Task<IResult<ObjectModel>> Read(string variableString)
         {
-            var objectModel = await crudRepository.Read(variableString);
-            if (objectModel == null)
-                return new NotFoundResult<ObjectModel>();
+            var objectModelResult = await crudRepository.Read(variableString);
             
-            return new SuccessResult<ObjectModel>(objectModel);
+            return objectModelResult;
         }
 
-        public async Task<IServiceResult<ObjectModel>> Update(ObjectModel objectModel)
+        public async Task<IResult<ObjectModel>> Update(ObjectModel objectModel)
         {
             var readObject = await crudRepository.Read(objectModel.VariableId);
 
-            if(readObject != null)
+            if (readObject.ResultType == ResultType.Error)
+                return readObject;
+
+            if(readObject.Data != null)
                 return new InvalidResult<ObjectModel>("objecto update does not exist");
 
-            await this.crudRepository.Update(objectModel);
+            var result = await this.crudRepository.Update(objectModel);
 
-            return new SuccessResult<ObjectModel>(objectModel);
+            return result;
         }
     }
 }

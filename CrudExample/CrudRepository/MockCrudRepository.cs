@@ -1,36 +1,78 @@
 ﻿using CrudDomain.Contracts.Repositories;
+using CrudDomain.Contracts.Services;
 using CrudDomain.Models;
+using CrudDomain.Services.ResultHandling;
 using System;
+using System.Threading.Tasks;
 
 namespace CrudRepository
 {
     public class MockCrudRepository : ICrudRepository
     {
-        public void Create(ObjectModel objectModel)
+        public async Task<IResult<ObjectModel>> Create(ObjectModel objectModel)
         {
-            // Create Object 
-        }
-
-        public void Delete(string variableString)
-        {
-            // Delete Object
-        }
-
-        public ObjectModel Read(string variableString)
-        {
-            var objectModel = new ObjectModel
+            try
             {
-                VariableString = variableString,
-                VariableInt = 123,
-                VariableBool = true
-            };
-
-            return objectModel;
+                return new CreateResult<ObjectModel>(objectModel);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult<ObjectModel>();
+            }
         }
 
-        public void Update(ObjectModel objectModel)
+        public async Task<IResult<ObjectModel>> Delete(string variableString)
         {
-            // Update Object
+            try
+            {
+                return new DeleteResult<ObjectModel>();
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult<ObjectModel>();
+            }
         }
+
+        public async Task<IResult<ObjectModel>> Read(string variableId)
+        {
+            try
+            {
+                var objectModel = new ObjectModel
+                {
+                    VariableString = "string",
+                    VariableInt = 123,
+                    VariableBool = true,
+                    VariableId = variableId
+                };
+
+                return new SuccessResult<ObjectModel>(null);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult<ObjectModel>();
+            }
+
+        }
+
+        public async Task<IResult<ObjectModel>> Update(ObjectModel objectModel)
+        {
+            try
+            {
+                var objectM = new ObjectModel
+                {
+                    VariableString = "string",
+                    VariableInt = 123,
+                    VariableBool = true,
+                    VariableId = "string"
+                };
+
+                return new SuccessResult<ObjectModel>(objectM);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult<ObjectModel>();
+            }
+        }
+
     }
 }

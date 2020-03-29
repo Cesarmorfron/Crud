@@ -2,7 +2,7 @@
 
 namespace CrudDomain.Contracts.Services
 {
-    public interface IServiceResult<T>
+    public interface IResult<T>
     {
         ResultType ResultType { get; }
         List<string> Errors { get; }

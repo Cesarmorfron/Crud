@@ -1,11 +1,13 @@
 ﻿using CrudDomain.Contracts.Services;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CrudDomain.Services.ResultHandling
 {
-    public class NotFoundResult<T> : IResult<T>
+    public class ErrorResult<T> : IResult<T>
     {
-        public ResultType ResultType => ResultType.NotFound;
+        public ResultType ResultType => ResultType.Error;
 
         public List<string> Errors => new List<string>();
 

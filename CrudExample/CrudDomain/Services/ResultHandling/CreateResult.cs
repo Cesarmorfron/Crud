@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CrudDomain.Services.ResultHandling
 {
-    public class CreateResult<T> : IServiceResult<T>
+    public class CreateResult<T> : IResult<T>
     {
         public CreateResult(T data)
         {
@@ -16,5 +16,6 @@ namespace CrudDomain.Services.ResultHandling
         public List<string> Errors => new List<string>();
 
         public T Data { get; }
+
     }
 }

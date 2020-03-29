@@ -6,6 +6,7 @@
         NotFound,
         Invalid,
         Create,
-        Delete
+        Delete,
+        Error
     }
 }

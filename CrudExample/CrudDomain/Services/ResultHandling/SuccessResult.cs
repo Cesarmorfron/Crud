@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CrudDomain.Services.ResultHandling
 {
-    public class SuccessResult<T> : IServiceResult<T>
+    public class SuccessResult<T> : IResult<T>
     {
         public SuccessResult(T data) {
             Data = data;

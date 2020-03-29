@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CrudDomain.Services.ResultHandling
 {
-    public class InvalidResult<T> : IServiceResult<T>
+    public class InvalidResult<T> : IResult<T>
     {
         private readonly string Error;
         public InvalidResult(string error)

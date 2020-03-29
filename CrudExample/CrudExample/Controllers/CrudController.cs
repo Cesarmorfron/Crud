@@ -70,7 +70,7 @@ namespace CrudExample.Controllers
             return FromResult(objectService);
         }
 
-        public ActionResult FromResult<T>(IServiceResult<T> result)
+        public ActionResult FromResult<T>(IResult<T> result)
         {
             return result.ResultType switch
             {
@@ -79,6 +79,7 @@ namespace CrudExample.Controllers
                 ResultType.Invalid => BadRequest(result.Errors),
                 ResultType.NotFound => NotFound(),
                 ResultType.Delete => NoContent(),
+                ResultType.Error => throw new ArgumentOutOfRangeException("result", result, "An unhandled result has occurred as a result of a service call."),
                 _ => throw new ArgumentOutOfRangeException("result", result, "An unhandled result has occurred as a result of a service call."),
             };
         }
